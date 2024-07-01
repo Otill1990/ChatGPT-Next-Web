@@ -17,6 +17,8 @@ import { ErrorBoundary } from "./error";
 
 import { getISOLang, getLang } from "../locales";
 
+import { useNavigate } from "react-router-dom";
+
 import {
   HashRouter as Router,
   Routes,
@@ -136,6 +138,13 @@ function Screen() {
     loadAsyncGoogleFont();
   }, []);
 
+  //jump auth page
+  const accessStore = useAccessStore();
+  const navigate = useNavigate();
+  if (!accessStore.isAuthorized()) {
+    navigate(Path.Auth)
+  }
+  
   return (
     <div
       className={
